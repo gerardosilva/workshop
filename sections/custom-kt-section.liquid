@@ -1,0 +1,64 @@
+<div class="custom-kt-section">
+    <h2> {{ section.settings.custom_text_title }} </h2>
+    <div>{{ section.settings.custom_text_body }}</div>
+    <div class="custom-kt-section-blocks">
+      {%- for block in section.blocks -%}
+          <div id="collection-{{ section.id }}-{{ forloop.index }}" class="collection-list__item grid__item">
+            <h3 style="color: {{ block.settings.custom_color_text }} ;">{{ block.settings.custom_text_collection_name }}</h3>
+            {% render 'card-collection', card_collection: block.settings.collection , media_aspect_ratio: section.settings.image_ratio, columns: columns %}
+          </div>
+        {%- endfor -%}
+    </div>
+  </div>
+  
+  {% schema %}
+  {
+    "name": "Custom KT Section",
+    "max_blocks": 5,
+    "settings": [
+      {
+        "id": "custom_text_title",
+        "type": "text",
+        "label": "Text box heading",
+        "default": "Title"
+      },
+      {
+        "id": "custom_text_body",
+        "type": "richtext",
+        "label": "Add custom text below",
+        "default": "<p>Add your text here</p>"
+      }
+    ],
+    "blocks": [
+    {
+      "type": "featured_collection",
+      "name": "Featured Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Select your collection"
+        },
+        {
+            "type": "text",
+            "id": "custom_text_collection_name",
+            "label": "Name",
+            "default": "Custom"
+        },
+        {
+            "type": "color",
+            "id": "custom_color_text",
+            "label": "Color text",
+            "default": "#000000"
+        }
+      ]
+    }
+  ],
+    "presets": [
+      {
+        "name": "Custom KT Section",
+        "category": "Custom"
+      }
+    ]
+  }
+{% endschema %}
